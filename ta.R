@@ -51,7 +51,7 @@ getRadiOkapi <- function (rdRubrique, NumDay){
 	}
     #Return the data frame	
     return (as.data.fralibrary(stringr)
-getmdXRubrique <- function (mdXRubrique){
+	getmdXRubrique <- function (mdXRubrique){
    if (tolower(mdXRubrique)== "politics" || tolower(mdXRubrique)== "politique"  ){mdXRubrique <- "articles-actualite-1-page-"}
    else if(tolower(mdXRubrique) == "economy" || tolower(mdXRubrique)== "economie" ){mdXRubrique <- "articles-actualite-3-page-"}
    else if(tolower(mdXRubrique) == "sport"){mdXRubrique <- "articles-actualite-8-page-"}
@@ -144,5 +144,6 @@ for (i in 1 : NumDay){
  
 }#End function
 me(dDTxtAnDFrame))
+
 }#End function
 
