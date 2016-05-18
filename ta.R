@@ -1,57 +1,5 @@
-getRadiOkapi <- function (rdRubrique, NumDay){
-        library(stringr)
-        keySource <- "http://www.radiookapi.net/"
-		NumDay <- as.integer(NumDay)
-                 
-		pLink <- paste(keySource,rdRubrique,sep="")
-	    dDTxtAnDFrame <- data.frame() 
-	for (i in 0 : NumDay){
-			#Link parameters
-			pLink <- paste(pLink,"?page=",sep="")
-			pLink <- paste(pLink,i,sep="")
-		    
-			dPData <- readLines(pLink)
-			dPData <-  iconv(dPData,"UTF-8","latin1")
-			keyWrd <- "views-field views-field-title" #Reference expression in the data
-			pDataGrep <- grep (keyWrd,dPData)#Grepping the referenced data
-			
-			keyLen <- length(pDataGrep)#Length of referenced data
-
-            for (i in 1: keyLen){    
-				              
-						#First line depending to the grep result
-						keyPub <- dPData[pDataGrep[i]]
-						keyPub <- str_trim(keyPub)#Removing left and right hidden characters   
-      
-	                    #Reference character
-						SpeCharGetValue <- unlist(gregexpr(pattern = keyWrd, keyPub)) + str_length(keyWrd) + 2
-						keyPub <- substr(keyPub,SpeCharGetValue,str_length(keyPub))
-						keyPub <- str_trim(keyPub)
-      
-						#Reference character
-						keyWrdHTML <- "a href"
-						SpeCharGetValue <- unlist(gregexpr(pattern = keyWrdHTML, keyPub)) + str_length(keyWrdHTML) + 2
-						keyPub <- substr(keyPub,SpeCharGetValue,str_length(keyPub))
-      
-						#Reference character
-						SpeCharGetValue <- unlist(gregexpr(pattern = '>', keyPub)) 
-						keyLink <- paste(keySource,str_trim(substr(keyPub,1,SpeCharGetValue[1]-2)), sep="")#Getting the Link
-						    
-						keyPubContent <- str_trim(substr(keyPub,SpeCharGetValue[1]+1,SpeCharGetValue[2]-4))#Substring to get the keyPubContent
-						#Following line in the data
-						keyPub <- dPData[pDataGrep[i]+1]
-      
-						#Reference character
-						SpeCharGetValue <- unlist(gregexpr(pattern = '>', keyPub))
-						keyDatePub <- str_trim(substr(keyPub,SpeCharGetValue[2]+1,SpeCharGetValue[2]+18))#Substring to get the date of Pub.
-    
-						dDFConst <- data.frame (keyPubContent,keyDatePub,keyLink)
-						dDTxtAnDFrame <- rbind(dDTxtAnDFrame, dDFConst)
-			}#Loop to extract data
-	}
-    #Return the data frame	
-    return (as.data.fralibrary(stringr)
-	getmdXRubrique <- function (mdXRubrique){
+library(stringr)
+getmdXRubrique <- function (mdXRubrique){
    if (tolower(mdXRubrique)== "politics" || tolower(mdXRubrique)== "politique"  ){mdXRubrique <- "articles-actualite-1-page-"}
    else if(tolower(mdXRubrique) == "economy" || tolower(mdXRubrique)== "economie" ){mdXRubrique <- "articles-actualite-3-page-"}
    else if(tolower(mdXRubrique) == "sport"){mdXRubrique <- "articles-actualite-8-page-"}
@@ -143,7 +91,61 @@ for (i in 1 : NumDay){
  return (as.data.frame(dDTxtAnDFrame))
  
 }#End function
-me(dDTxtAnDFrame))
 
+
+
+getRadiOkapi <- function (rdRubrique, NumDay){
+        library(stringr)
+        keySource <- "http://www.radiookapi.net/"
+		NumDay <- as.integer(NumDay)
+                 
+		pLink <- paste(keySource,rdRubrique,sep="")
+	    dDTxtAnDFrame <- data.frame() 
+	for (i in 0 : NumDay){
+			#Link parameters
+			pLink <- paste(pLink,"?page=",sep="")
+			pLink <- paste(pLink,i,sep="")
+		    
+			dPData <- readLines(pLink)
+			dPData <-  iconv(dPData,"UTF-8","latin1")
+			keyWrd <- "views-field views-field-title" #Reference expression in the data
+			pDataGrep <- grep (keyWrd,dPData)#Grepping the referenced data
+			
+			keyLen <- length(pDataGrep)#Length of referenced data
+
+            for (i in 1: keyLen){    
+				              
+						#First line depending to the grep result
+						keyPub <- dPData[pDataGrep[i]]
+						keyPub <- str_trim(keyPub)#Removing left and right hidden characters   
+      
+	                    #Reference character
+						SpeCharGetValue <- unlist(gregexpr(pattern = keyWrd, keyPub)) + str_length(keyWrd) + 2
+						keyPub <- substr(keyPub,SpeCharGetValue,str_length(keyPub))
+						keyPub <- str_trim(keyPub)
+      
+						#Reference character
+						keyWrdHTML <- "a href"
+						SpeCharGetValue <- unlist(gregexpr(pattern = keyWrdHTML, keyPub)) + str_length(keyWrdHTML) + 2
+						keyPub <- substr(keyPub,SpeCharGetValue,str_length(keyPub))
+      
+						#Reference character
+						SpeCharGetValue <- unlist(gregexpr(pattern = '>', keyPub)) 
+						keyLink <- paste(keySource,str_trim(substr(keyPub,1,SpeCharGetValue[1]-2)), sep="")#Getting the Link
+						    
+						keyPubContent <- str_trim(substr(keyPub,SpeCharGetValue[1]+1,SpeCharGetValue[2]-4))#Substring to get the keyPubContent
+						#Following line in the data
+						keyPub <- dPData[pDataGrep[i]+1]
+      
+						#Reference character
+						SpeCharGetValue <- unlist(gregexpr(pattern = '>', keyPub))
+						keyDatePub <- str_trim(substr(keyPub,SpeCharGetValue[2]+1,SpeCharGetValue[2]+18))#Substring to get the date of Pub.
+    
+						dDFConst <- data.frame (keyPubContent,keyDatePub,keyLink)
+						dDTxtAnDFrame <- rbind(dDTxtAnDFrame, dDFConst)
+			}#Loop to extract data
+	}
+    #Return the data frame	
+    return (as.data.frame(dDTxtAnDFrame))
 }#End function
 
