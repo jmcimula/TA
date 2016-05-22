@@ -78,11 +78,12 @@ for (i in 1 : NumDay){
 	  keyDatePub <- substr(str_trim(keyDatePub),1,10)
 	  keyDatePub <- str_replace_all (keyDatePub, '[.]', "-")
 	 
-	  keySentAnalysis <- getSentimentAnalysis(keyLink) #Function to retrieve some sentiment Analysis values
-	  keyFollower <- keySentAnalysis$keyNbFollower #Number of followers
-	  keyCountComment <- keySentAnalysis$keyNbComment #Number of comment
+	  #keySentAnalysis <- getSentimentAnalysis(keyLink) #Function to retrieve some sentiment Analysis values
+	  #keyFollower <- keySentAnalysis$keyNbFollower #Number of followers
+	  #keyCountComment <- keySentAnalysis$keyNbComment #Number of comment
 	  
-	  dDFConst <- data.frame (keyPubContent,keyDatePub,keyLink,keyFollower,keyCountComment) #Building data frame
+	  #dDFConst <- data.frame (keyPubContent,keyDatePub,keyLink,keyFollower,keyCountComment) #Building data frame
+	  dDFConst <- data.frame (keyPubContent,keyDatePub,keyLink) #Building data frame
 	  dDTxtAnDFrame <- rbind(dDTxtAnDFrame, dDFConst)
     }#Loop to extract data
 	  
