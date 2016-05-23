@@ -215,13 +215,13 @@ pname <- str_trim(pname)
 overview <- substr(st,val[2],val[3])
 delim <- unlist(gregexpr(pattern="<li>",overview))
 
-ref <- getOverview(substr(overview,delim[1],delim[2]))
-aprovalDate <- getOverview(substr(overview,delim[2],delim[3]))
-startDate <- getOverview(substr(overview,delim[3],delim[4]))
-apraisalDate <- getOverview(substr(overview,delim[4],delim[5]))#if status is PIPE 
-status <- getOverview(substr(overview,delim[5],delim[6]))
+ref 			<- getOverview(substr(overview,delim[1],delim[2]))
+aprovalDate 	<- getOverview(substr(overview,delim[2],delim[3]))
+startDate 		<- getOverview(substr(overview,delim[3],delim[4]))
+apraisalDate	<- getOverview(substr(overview,delim[4],delim[5]))#if status is PIPE 
+status 			<- getOverview(substr(overview,delim[5],delim[6]))
 implementedAgency <- getOverview(substr(overview,delim[6],delim[7]))
-location <- getOverview(substr(overview,delim[7],str_length(overview)))
+location 		  <- getOverview(substr(overview,delim[7],str_length(overview)))
 
 #val 3 to 4
 keyContact <- getKeyContact(substr(st,val[3],val[4]-1),ptt)
@@ -243,6 +243,19 @@ print(status)
 print(substr(st,val[4],unlist(gregexpr(pattern="TYPO3SEARCH_end",st))))#!!!! Here there are cost and key contact
 }
 
+
+getProjectOngoing <- function (strURL){
+
+firstRow <- strURL %>%
+            html_nodes("tr th") %>%
+			html_text()
+			
+secondR <-  strURL %>%
+            html_nodes("tbody") %>%
+			html_text()
+			
+#Assembling firstRow and secondR
+}
 
 
 
